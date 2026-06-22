@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/***** Base page styles *****/
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /***** App shell *****/
+  .app-shell {
+    @apply min-h-screen overflow-x-hidden bg-paper font-sans text-ink;
+  }
+
+  /***** Header / navigation section *****/
+  .site-header {
+    @apply sticky top-0 z-20 flex min-h-[72px] items-center justify-between border-b border-line/80 bg-paper/90 px-4 backdrop-blur sm:px-6 md:px-[5vw];
+  }
+
+  .brand-mark {
+    @apply grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-ink font-extrabold text-white;
+  }
+
+  .site-nav {
+    @apply absolute left-4 right-4 top-[72px] hidden rounded-lg border border-line bg-white p-3 shadow-soft sm:left-auto sm:right-6 sm:w-72 md:static md:flex md:w-auto md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0 md:shadow-none;
+  }
+
+  .site-nav.is-open {
+    @apply grid;
+  }
+
+  .site-nav a {
+    @apply rounded-lg px-3 py-2 text-sm font-bold text-slate-700 hover:text-teal-700 md:p-0;
+  }
+
+  /***** Shared page section layout *****/
+  .page-section {
+    @apply mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 md:px-[5vw] md:py-20 xl:py-24;
+  }
+
+  /***** Profile section *****/
+  .profile-section {
+    @apply border-y border-line bg-white;
+  }
+
+  .profile-grid {
+    @apply mx-auto grid w-full max-w-7xl gap-8 px-4 py-16 sm:px-6 md:px-[5vw] md:py-20 lg:grid-cols-2 xl:py-24;
+  }
+
+  /***** Hero section *****/
+  .hero-section {
+    @apply mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:px-[5vw] md:py-16 lg:grid-cols-2 xl:py-20;
+  }
+
+  .hero-copy {
+    @apply min-w-0 max-w-3xl;
+  }
+
+  .hero-title {
+    @apply mb-6 break-words text-5xl font-bold leading-tight sm:text-6xl md:text-7xl lg:text-8xl;
+  }
+
+  .hero-text,
+  .body-text {
+    @apply max-w-2xl text-base leading-7 text-slate-700 sm:text-lg sm:leading-8;
+  }
+
+  .button-row {
+    @apply mt-8 grid gap-3 sm:flex;
+  }
+
+  /***** Hero carousel section *****/
+  .hero-image {
+    @apply relative m-0 overflow-hidden rounded-lg shadow-soft;
+  }
+
+  .hero-image img {
+    @apply h-72 w-full object-cover transition-opacity duration-300 sm:h-96 lg:h-[520px];
+  }
+
+  .carousel-controls {
+    @apply absolute inset-x-4 top-1/2 flex -translate-y-1/2 justify-between;
+  }
+
+  .carousel-controls button {
+    @apply bg-white/90 shadow-md backdrop-blur hover:bg-white;
+  }
+
+  .carousel-dots {
+    @apply absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/80 px-3 py-2 backdrop-blur;
+  }
+
+  .carousel-dots button {
+    @apply h-2.5 w-2.5 rounded-full bg-slate-400 transition;
+  }
+
+  .carousel-dots button.is-active {
+    @apply w-6 bg-teal-700;
+  }
+
+  /***** Shared text styles *****/
+  .section-kicker {
+    @apply mb-3 break-words text-xs font-extrabold uppercase tracking-wider text-teal-700;
+  }
+
+  .section-title {
+    @apply mb-5 break-words text-3xl font-extrabold leading-tight text-ink sm:text-4xl lg:text-5xl;
+  }
+
+  /***** Projects section *****/
+  .project-grid {
+    @apply grid gap-6 md:grid-cols-2 xl:grid-cols-3;
+  }
+
+  .project-image {
+    @apply aspect-[4/3] w-full object-cover;
+  }
+
+  .card-title {
+    @apply mb-3 break-words text-xl font-extrabold leading-tight text-ink sm:text-2xl;
+  }
+
+  .muted-text {
+    @apply text-muted;
+  }
+
+  /***** Experience section *****/
+  .dark-section {
+    @apply bg-[#202829] text-white;
+  }
+
+  .timeline {
+    @apply grid gap-5;
+  }
+
+  .timeline-item {
+    @apply grid gap-2 border-t border-white/20 py-7 md:grid-cols-[160px_1fr] md:gap-7;
+  }
+
+  .timeline-item span {
+    @apply font-extrabold text-[#89d8cf];
+  }
+
+  .timeline-item h3 {
+    @apply mb-2 break-words text-xl font-extrabold leading-tight sm:text-2xl;
+  }
+
+  .timeline-item p {
+    @apply text-white/70;
+  }
+
+  /***** Skills section *****/
+  .skill-list {
+    @apply flex flex-wrap gap-3;
+  }
+
+  /***** Contact section *****/
+  .contact-section {
+    @apply mx-auto grid w-full max-w-7xl items-center gap-8 px-4 py-16 sm:px-6 md:px-[5vw] md:py-20 lg:grid-cols-[1fr_360px] xl:py-24;
+  }
+
+  .contact-links {
+    @apply grid gap-3;
+  }
+
+  .contact-links a {
+    @apply flex min-h-14 items-center justify-between gap-4 rounded-lg border border-line bg-white px-4 font-extrabold text-teal-900 sm:px-5;
+  }
+
+  .contact-links span {
+    @apply min-w-0 break-words;
+  }
+
+  /***** Footer section *****/
+  .site-footer {
+    @apply mx-auto flex w-full max-w-7xl flex-col gap-4 border-t border-line px-4 py-7 text-muted sm:px-6 md:flex-row md:items-center md:justify-between md:px-[5vw];
+  }
+
+  .site-footer a {
+    @apply font-extrabold text-ink;
+  }
+}
