@@ -4,6 +4,8 @@ import { ChevronLeft, ChevronRight, Menu, MoveUpRight } from "lucide-react";
 import { Badge } from "./components/ui/badge";
 import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
+import Hostel from "./assets/hostelhome.png";
+import Profile from "./assets/profile-picture.jpg";
 
 /***** Navigation links *****/
 const navItems = [
@@ -16,29 +18,26 @@ const navItems = [
 /***** Project cards data *****/
 const projects = [
   {
-    type: "SaaS Dashboard",
-    title: "SignalBoard",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80",
-    alt: "Analytics dashboard on a laptop screen",
+    type: "GuideLink : Digital intervention System",
+    title: "GuideLink",
+    image: Hostel,
+    alt: "Capstone Project",
     description:
-      "A workflow dashboard that helps growth teams track experiments, spot risk, and report impact from one focused interface.",
+      "Digital Intervention System for Bulacan State University - Meneses Campus. A web-based application that provides a platform for students to access information and resources related to their academic and personal development.",
   },
   {
-    type: "Collaboration Tool",
-    title: "Northstar Rooms",
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80",
-    alt: "Team collaborating around a table",
+    type: "Hostel Dormitory | Bulacan State University",
+    title: "Hostel Dormitory",
+    image: Hostel,
+    alt: "Internship Project at ICTO",
     description:
       "A planning space for distributed teams with shared goals, crisp decisions, and lightweight async updates.",
   },
   {
-    type: "Brand System",
-    title: "Forma Studio",
-    image:
-      "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80",
-    alt: "Architectural geometric detail in bright colors",
+    type: "EduQuest - Your Personal Learning Companion",
+    title: "EduQuest",
+    image: Hostel,
+    alt: "3rd Year Project",
     description:
       "A flexible visual identity and website system for a boutique interior studio launching its first digital sales channel.",
   },
@@ -47,49 +46,40 @@ const projects = [
 /***** Experience section data *****/
 const roles = [
   {
-    years: "2024 - Present",
-    title: "Senior Product Designer, Orbit Labs",
+    years: "January 2026 - April 2026 ",
+    title: "Front-End Developer Intern | Bulacan State University",
     summary:
-      "Led design systems, prototyping, and frontend implementation for B2B product teams.",
-  },
-  {
-    years: "2021 - 2024",
-    title: "Frontend Developer, BrightDesk",
-    summary:
-      "Built accessible React interfaces, dashboard workflows, and reusable component libraries.",
-  },
-  {
-    years: "2019 - 2021",
-    title: "UI Designer, Freelance",
-    summary:
-      "Partnered with startups on landing pages, product MVPs, and brand refreshes.",
-  },
+      "Worked on the development of a Hostel Dormitory Management System, contributing to the front-end implementation and user interface design.",
+  }
 ];
 
 /***** Skills section data *****/
 const skills = [
-  "Product Strategy",
+  "Front-End Web Dev",
   "Interface Design",
   "Design Systems",
   "HTML",
   "CSS",
+  "Java",
   "JavaScript",
+  "PhP",
+  "C, C++, C#",
   "React",
   "Accessibility",
 ];
 
 /***** Contact section links *****/
 const contactLinks = [
-  ["hello@example.com", "mailto:hello@example.com"],
-  ["LinkedIn", "https://www.linkedin.com/"],
-  ["GitHub", "https://github.com/"],
+  ["jovertcardiente0999@gmail.com", "#"],
+  ["LinkedIn", "https://www.linkedin.com/in/john-jovert-cardiente-7843313bb/"],
+  ["GitHub", "https://github.com/Yuuto-r"],
 ];
 
 /***** Hero carousel images *****/
 const heroSlides = [
   {
     image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+      Hostel,
     alt: "Modern creative workspace with laptop and design materials",
   },
   {
@@ -110,9 +100,7 @@ function Header() {
 
   return (
     <header className="site-header">
-      <a className="brand-mark" href="#top" aria-label="John Jovert home">
-        JC
-      </a>
+      <img className="brand-mark" src={Profile} alt="John Jovert home" />
 
       <nav className={`site-nav ${isOpen ? "is-open" : ""}`} aria-label="Primary navigation">
         {navItems.map((item) => (
@@ -236,7 +224,7 @@ function ProjectCard({ project }) {
         <p className="muted-text">{project.description}</p>
         <Button className="mt-3 px-0" asChild variant="ghost">
           <a href="#">
-            Case Study
+            View
             <MoveUpRight className="ml-1 h-4 w-4" />
           </a>
         </Button>
@@ -247,6 +235,31 @@ function ProjectCard({ project }) {
 
 /***** Main page layout *****/
 function App() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const subject = encodeURIComponent(
+      `Portfolio inquiry from ${formData.name || "a visitor"}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${formData.name || "N/A"}\nEmail: ${formData.email || "N/A"}\n\nMessage:\n${formData.message || ""}`
+    );
+
+    setStatus("Your email app will open with the message prepared.");
+  }
+
   return (
     <div className="app-shell">
       <Header />
@@ -325,21 +338,62 @@ function App() {
               Send a note about what you are building, what you need help with,
               and the timeline you are aiming for.
             </p>
+
+            <div className="contact-links">
+              {contactLinks.map(([label, href]) => (
+                <a
+                  href={href}
+                  key={label}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
+                >
+                  <span>{label}</span>
+                  <MoveUpRight className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div className="contact-links">
-            {contactLinks.map(([label, href]) => (
-              <a
-                href={href}
-                key={label}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noreferrer" : undefined}
-              >
-                <span>{label}</span>
-                <MoveUpRight className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <label>
+              <span>Name</span>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <label>
+              <span>Message</span>
+              <textarea
+                name="message"
+                rows="5"
+                placeholder="Tell me about your idea..."
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <Button type="submit">Send Email</Button>
+            {status ? <p className="form-status">{status}</p> : null}
+          </form>
         </section>
       </main>
 

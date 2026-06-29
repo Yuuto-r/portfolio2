@@ -172,7 +172,7 @@
   }
 
   .contact-links {
-    @apply grid gap-3;
+    @apply mt-6 grid gap-3;
   }
 
   .contact-links a {
@@ -181,6 +181,23 @@
 
   .contact-links span {
     @apply min-w-0 break-words;
+  }
+
+  .contact-form {
+    @apply grid gap-4 rounded-xl border border-line bg-white p-5 shadow-soft;
+  }
+
+  .contact-form label {
+    @apply grid gap-2 text-sm font-semibold text-slate-700;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    @apply w-full rounded-lg border border-line bg-slate-50 px-3 py-2 text-sm text-ink outline-none transition focus:border-teal-700 focus:bg-white;
+  }
+
+  .form-status {
+    @apply text-sm font-medium text-teal-700;
   }
 
   /***** Footer section *****/
