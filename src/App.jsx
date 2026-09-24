@@ -6,6 +6,16 @@ import { Button } from "./components/ui/button";
 import { Card, CardContent } from "./components/ui/card";
 import Hostel from "./assets/hostelhome.png";
 import Profile from "./assets/profile-picture.jpg";
+import Guidelink from "./assets/guidelink.png";
+import Eduquest from "./assets/eduquest.png";
+
+import emailjs from '@emailjs/browser';
+
+/***** EmailJS Configuration *****/
+const EMAILJS_SERVICE_ID = "service_tdosgkr";
+const EMAILJS_TEMPLATE_ID = "template_knj6boo";
+const EMAILJS_PUBLIC_KEY = "f_6YZoYMqQ4w9yIe9";
+
 
 /***** Navigation links *****/
 const navItems = [
@@ -20,7 +30,7 @@ const projects = [
   {
     type: "GuideLink : Digital intervention System",
     title: "GuideLink",
-    image: Hostel,
+    image: Guidelink,
     alt: "Capstone Project",
     description:
       "Digital Intervention System for Bulacan State University - Meneses Campus. A web-based application that provides a platform for students to access information and resources related to their academic and personal development.",
@@ -36,7 +46,7 @@ const projects = [
   {
     type: "EduQuest - Your Personal Learning Companion",
     title: "EduQuest",
-    image: Hostel,
+    image: Eduquest,
     alt: "3rd Year Project",
     description:
       "A flexible visual identity and website system for a boutique interior studio launching its first digital sales channel.",
@@ -56,21 +66,18 @@ const roles = [
 /***** Skills section data *****/
 const skills = [
   "Front-End Web Dev",
-  "Interface Design",
   "Design Systems",
   "HTML",
   "CSS",
   "Java",
   "JavaScript",
   "PhP",
-  "C, C++, C#",
   "React",
-  "Accessibility",
 ];
 
 /***** Contact section links *****/
 const contactLinks = [
-  ["jovertcardiente0999@gmail.com", "#"],
+  ["jovertcardiente0999@gmail.com", "https://mail.google.com/mail/?view=cm&fs=1&to=jovertcardiente0999@gmail.com"],
   ["LinkedIn", "https://www.linkedin.com/in/john-jovert-cardiente-7843313bb/"],
   ["GitHub", "https://github.com/Yuuto-r"],
 ];
@@ -84,12 +91,12 @@ const heroSlides = [
   },
   {
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+      Guidelink,
     alt: "Developer working on a laptop with code editor open",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80",
+      Eduquest,
     alt: "Team reviewing product work around a table",
   },
 ];
@@ -241,23 +248,53 @@ function App() {
     message: "",
   });
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData((current) => ({ ...current, [name]: value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    const subject = encodeURIComponent(
-      `Portfolio inquiry from ${formData.name || "a visitor"}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name || "N/A"}\nEmail: ${formData.email || "N/A"}\n\nMessage:\n${formData.message || ""}`
-    );
+    // 1. Anti-spam check using localStorage
+    const maxSubmissions = 5;
+    const currentSubmissions = parseInt(localStorage.getItem("form_submit_count") || "0", 10);
 
-    setStatus("Your email app will open with the message prepared.");
+    if (currentSubmissions >= maxSubmissions) {
+      setStatus("You have reached the maximum number of submissions from this device.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus("Sending email...");
+
+    try {
+      // 2. Transmit message payload using EmailJS 
+      // Change this part in your App() component's handleSubmit:
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: formData.name,      // Changed from from_name
+          email: formData.email,    // Changed from reply_to
+          message: formData.message,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
+      // 3. Increment anti-spam submission counter on device success
+      localStorage.setItem("form_submit_count", (currentSubmissions + 1).toString());
+
+      setStatus("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS submission failure:", error);
+      setStatus("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -277,9 +314,11 @@ function App() {
               </h2>
             </div>
             <p className="body-text">
-              Replace this copy with your own story: what you make, who you
-              help, and why your work is valuable. Keep it direct, human, and
-              specific.
+              I am John Jovert Cardiente, a web and mobile app developer focused
+              on building high-fidelity, highly responsive digital interfaces that
+              turn complex workflows into intuitive user experiences. I specialize
+              in bridging the gap between pixel-perfect design and clean, maintainable
+              code across all screen sizes.
             </p>
           </div>
         </section>
@@ -354,47 +393,7 @@ function App() {
             </div>
           </div>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <label>
-              <span>Name</span>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <label>
-              <span>Email</span>
-              <input
-                type="email"
-                name="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <label>
-              <span>Message</span>
-              <textarea
-                name="message"
-                rows="5"
-                placeholder="Tell me about your idea..."
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
-            </label>
-
-            <Button type="submit">Send Email</Button>
-            {status ? <p className="form-status">{status}</p> : null}
-          </form>
-        </section>
+          </section>
       </main>
 
       {/***** Footer section *****/}
