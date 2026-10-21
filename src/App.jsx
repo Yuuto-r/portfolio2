@@ -41,7 +41,7 @@ const projects = [
     image: Hostel,
     alt: "Internship Project at ICTO",
     description:
-      "A planning space for distributed teams with shared goals, crisp decisions, and lightweight async updates.",
+      "Hostel Dormitory Booking at Bulacan State University. A website from Bulacan Stateb University that provides students, faculty, and graduates to easily book appointment and look for their desired room and other amenities.",
   },
   {
     type: "EduQuest - Your Personal Learning Companion",
@@ -49,7 +49,7 @@ const projects = [
     image: Eduquest,
     alt: "3rd Year Project",
     description:
-      "A flexible visual identity and website system for a boutique interior studio launching its first digital sales channel.",
+      "EduQuest is a web and mobile application that provides a personalized learning experience for students. It offers a variety of educational resources, including quizzes, flashcards,research browser, socializeing, and interactive lessons, to help students learn and retain information more effectively.",
   },
 ];
 
